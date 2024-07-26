@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUrl } from "./store/UrlSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Movies from "./moviesAndTvShow/Movies";
+import SingleMovieDta from "./component/SingleMovieDta";
 function App() {
   const dispatch = useDispatch();
   const options = {
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/singlemoviedata" element={<SingleMovieDta />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,12 +5,15 @@ import "react-multi-carousel/lib/styles.css";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getData } from "../store/UrlSlice";
+import { Link } from "react-router-dom";
 
 const Trending = () => {
   const [trending, setTrending] = useState([]);
   const url = useSelector((state) => state.url.url);
   //   console.log("path", url.backdrop);
+  const dispatch = useDispatch();
 
   console.log("trending", trending);
 
@@ -54,6 +57,10 @@ const Trending = () => {
         console.error(error);
       });
   }, []);
+
+  const data = (num) => {
+    dispatch(getData(num));
+  };
   return (
     <div>
       <div className="container">
@@ -64,46 +71,51 @@ const Trending = () => {
       <div className="container" style={{ marginTop: 20 }}>
         <Carousel responsive={responsive}>
           {trending.map((num) => (
-            <div class="card">
-              <img
-                src={url.backdrop + num?.poster_path}
-                class="card-img-top"
-                alt="..."
-                style={{ height: 300 }}
-              />
-              <div class="card">
-                <div className="circleRating" style={{ height: 30, width: 50 }}>
-                  <CircularProgressbar
-                    value={num?.vote_average}
-                    maxValue={10}
-                    text={num?.vote_average.toFixed(1)}
-                    styles={buildStyles({
-                      pathColor:
-                        num?.vote_average < 5
-                          ? "red"
-                          : num?.vote_average < 7
-                          ? "orange"
-                          : "green",
-                    })}
-                  />
-                </div>
-                {!num?.original_title ? (
-                  <h5 class="card-title" style={{ marginTop: 20 }}>
-                    {num?.original_name}
-                  </h5>
-                ) : (
-                  <h5 class="card-title" style={{ marginTop: 20 }}>
-                    {num?.original_title}
-                  </h5>
-                )}
+            <Link to="/singlemoviedata">
+              <div class="card" onClick={() => data(num)}>
+                <img
+                  src={url.backdrop + num?.poster_path}
+                  class="card-img-top"
+                  alt="..."
+                  style={{ height: 300 }}
+                />
+                <div class="card">
+                  <div
+                    className="circleRating"
+                    style={{ height: 30, width: 50 }}
+                  >
+                    <CircularProgressbar
+                      value={num?.vote_average}
+                      maxValue={10}
+                      text={num?.vote_average.toFixed(1)}
+                      styles={buildStyles({
+                        pathColor:
+                          num?.vote_average < 5
+                            ? "red"
+                            : num?.vote_average < 7
+                            ? "orange"
+                            : "green",
+                      })}
+                    />
+                  </div>
+                  {!num?.original_title ? (
+                    <h5 class="card-title" style={{ marginTop: 20 }}>
+                      {num?.original_name}
+                    </h5>
+                  ) : (
+                    <h5 class="card-title" style={{ marginTop: 20 }}>
+                      {num?.original_title}
+                    </h5>
+                  )}
 
-                {!num?.release_date ? (
-                  <h5 class="card-title">{num?.first_air_date}</h5>
-                ) : (
-                  <h5 class="card-title">{num?.release_date}</h5>
-                )}
+                  {!num?.release_date ? (
+                    <h5 class="card-title">{num?.first_air_date}</h5>
+                  ) : (
+                    <h5 class="card-title">{num?.release_date}</h5>
+                  )}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </Carousel>
       </div>

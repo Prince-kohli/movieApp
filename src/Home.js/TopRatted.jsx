@@ -6,11 +6,15 @@ import "react-multi-carousel/lib/styles.css";
 import "./style.scss";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useDispatch } from "react-redux";
+import { getData } from "../store/UrlSlice";
+import { Link } from "react-router-dom";
+
 const TopRatted = () => {
   const [topRated, setTopRated] = useState([]);
   const url = useSelector((state) => state.url.url);
-  // console.log("url", url.backdrop);
-  // console.log("toprated", topRated);
+
+  const dispatch = useDispatch();
 
   const options = {
     method: "GET",
@@ -53,6 +57,15 @@ const TopRatted = () => {
     },
   };
 
+  const getdata = (num) => {
+    // console.log("num", num);
+    dispatch(getData(num));
+  };
+
+  useEffect(() => {
+    getData();
+  }, [getData()]);
+
   return (
     <div className="container">
       <div>
@@ -63,36 +76,41 @@ const TopRatted = () => {
       <div className="container" style={{ marginTop: 20 }}>
         <Carousel responsive={responsive}>
           {topRated?.map((num) => (
-            <div class="card">
-              <img
-                src={url.backdrop + num?.poster_path}
-                class="card-img-top"
-                alt="..."
-                style={{ height: 300 }}
-              />
+            <Link to="/singlemoviedata">
+              <div class="card" onClick={() => getdata(num)}>
+                <img
+                  src={url.backdrop + num?.poster_path}
+                  class="card-img-top"
+                  alt="..."
+                  style={{ height: 300 }}
+                />
 
-              <div class="card">
-                <div className="circleRating" style={{ height: 30, width: 50 }}>
-                  <CircularProgressbar
-                    value={num?.vote_average}
-                    maxValue={10}
-                    text={num?.vote_average.toFixed(1)}
-                    styles={buildStyles({
-                      pathColor:
-                        num?.vote_average < 5
-                          ? "red"
-                          : num?.vote_average < 7
-                          ? "orange"
-                          : "green",
-                    })}
-                  />
+                <div class="card">
+                  <div
+                    className="circleRating"
+                    style={{ height: 30, width: 50 }}
+                  >
+                    <CircularProgressbar
+                      value={num?.vote_average}
+                      maxValue={10}
+                      text={num?.vote_average.toFixed(1)}
+                      styles={buildStyles({
+                        pathColor:
+                          num?.vote_average < 5
+                            ? "red"
+                            : num?.vote_average < 7
+                            ? "orange"
+                            : "green",
+                      })}
+                    />
+                  </div>
+                  <h5 class="card-title NavLink " style={{ marginTop: 20 }}>
+                    {num?.original_name}
+                  </h5>
+                  <h6 class="card-title">{num?.first_air_date}</h6>
                 </div>
-                <h5 class="card-title" style={{ marginTop: 20 }}>
-                  {num?.original_name}
-                </h5>
-                <h6 class="card-title">{num?.first_air_date}</h6>
               </div>
-            </div>
+            </Link>
           ))}
         </Carousel>
       </div>
