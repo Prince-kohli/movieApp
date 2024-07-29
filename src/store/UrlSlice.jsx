@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   url: {},
   data: [],
+  more: [],
 };
 
 export const urlSlice = createSlice({
@@ -15,9 +16,12 @@ export const urlSlice = createSlice({
     getData: (state, action) => {
       state.data = action.payload;
     },
+    getMore: (state, action) => {
+      state.more = action.payload;
+    },
   },
 });
 
-export const { getUrl, getData } = urlSlice.actions;
+export const { getUrl, getData, getMore } = urlSlice.actions;
 
 export default urlSlice.reducer;

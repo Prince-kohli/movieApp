@@ -9,8 +9,8 @@ const NavBar = () => {
           <Link class="navbar-brand" to="/" style={{ color: "white" }}>
             <img
               src="https://movix-peach-ten.vercel.app/assets/movix-logo-dOW-bAAW.svg"
-              height={80}
-              width={100}
+              height={70}
+              width={190}
             />
           </Link>
           <button
@@ -32,7 +32,7 @@ const NavBar = () => {
                   class="nav-link active"
                   aria-current="page"
                   to="/movies"
-                  style={{ color: "white", fontSize: 25, marginLeft: 10 }}
+                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
                 >
                   Movies
                 </Link>
@@ -41,7 +41,7 @@ const NavBar = () => {
                 <a
                   class="nav-link"
                   href="#"
-                  style={{ color: "white", fontSize: 25, marginLeft: 10 }}
+                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
                 >
                   Tv Shows
                 </a>
@@ -50,12 +50,36 @@ const NavBar = () => {
                 <a
                   class="nav-link"
                   href="#"
-                  style={{ color: "white", fontSize: 25, marginLeft: 10 }}
+                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
                 >
                   Upcoming
                 </a>
               </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input
+                class="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                style={{ marginLeft: 15, width: 450 }}
+              />
+            </form>
+            <button
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+              style={{ marginLeft: 5 }}
+            >
+              Search
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-light"
+              style={{ marginLeft: 10 }}
+            >
+              Login
+            </button>
           </div>
         </div>
       </nav>

@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./NavBar";
+import NavBar from "../component/NavBar";
 import { useSelector } from "react-redux";
 
 const SingleMovieDta = () => {
@@ -28,11 +28,23 @@ const SingleMovieDta = () => {
             </div>
             <div class="col-md-8 cardbody" style={{ paddingLeft: 15 }}>
               <div class="card-body">
-                <h5 class="card-title">{data?.original_name}</h5>
+                {!data?.original_title ? (
+                  <h5 class="card-title nav-link" style={{ marginTop: 20 }}>
+                    {data?.original_name}
+                  </h5>
+                ) : (
+                  <h5 class="card-title" style={{ marginTop: 20 }}>
+                    {data?.original_title}
+                  </h5>
+                )}
                 <p class="card-text" style={{ marginTop: 5 }}>
-                  {data.overview}
+                  {data?.overview}
                 </p>
-                <p class="card-text">{data.first_air_date}</p>
+                {!data?.release_date ? (
+                  <h5 class="card-title">{data?.first_air_date}</h5>
+                ) : (
+                  <h5 class="card-title">{data?.release_date}</h5>
+                )}
               </div>
             </div>
           </div>

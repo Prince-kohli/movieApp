@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import Home from "./Home.js/Home";
+import MoviesAll from "./moviesAndTvShow/MoviesAll";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getUrl } from "./store/UrlSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Movies from "./moviesAndTvShow/Movies";
-import SingleMovieDta from "./component/SingleMovieDta";
+import SinglePage from "./singlePage/SinglePage";
 function App() {
   const dispatch = useDispatch();
   const options = {
@@ -44,7 +45,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/singlemoviedata" element={<SingleMovieDta />} />
+          <Route path="/singlemoviedata" element={<SinglePage />} />
+          <Route path="/movieall" element={<MoviesAll />} />
         </Routes>
       </BrowserRouter>
     </div>

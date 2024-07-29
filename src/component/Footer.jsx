@@ -5,15 +5,15 @@ const Footer = () => {
     <div className="container-fulid futer">
       <div style={{ color: "white", textAlign: "center", marginTop: 50 }}>
         <div className=" footer" style={{ marginTop: 40 }}>
-          <h6 style={{ color: "black" }}>Terms Of Use</h6>
+          <h6 style={{ color: "white" }}>Terms Of Use</h6>
 
-          <h6 style={{ marginLeft: 15, color: "black" }}> Privacy Policy</h6>
-          <h6 style={{ marginLeft: 15, color: "black" }}>About</h6>
-          <h6 style={{ marginLeft: 15, color: "black" }}>Blog</h6>
-          <h6 style={{ marginLeft: 15, color: "black" }}>Faq</h6>
+          <h6 style={{ marginLeft: 15, color: "white" }}> Privacy Policy</h6>
+          <h6 style={{ marginLeft: 15, color: "white" }}>About</h6>
+          <h6 style={{ marginLeft: 15, color: "white" }}>Blog</h6>
+          <h6 style={{ marginLeft: 15, color: "white" }}>Faq</h6>
         </div>
         <div className="container">
-          <p style={{ textAlign: "center", color: "black" }}>
+          <p style={{ textAlign: "center", color: "white" }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
