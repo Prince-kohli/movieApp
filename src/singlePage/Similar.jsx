@@ -36,7 +36,7 @@ const Similar = () => {
       .catch(function (error) {
         console.error(error);
       });
-  });
+  }, []);
 
   const responsive = {
     superLargeDesktop: {

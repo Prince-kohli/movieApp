@@ -53,24 +53,18 @@ body {
   width: 100%;
   height: 650px;
 
-  -webkit-filter: blur(8px);
+  -webkit-filter: blur(4px);
 }
 
 .card1 {
   opacity: 1;
-  width: 700px;
+  max-width: 740px;
   position: absolute;
-  top: 280px;
+  top: 150px;
   z-index: 10;
   align-items: center;
-  margin-left: 300px;
-}
-
-.cardbody {
-  color: #fff;
-  font-family: "Young Serif", serif;
-  font-size: large;
-  font-weight: 400px;
+  float: left;
+  margin-left: 150px;
 }
 
 .cast {
@@ -98,4 +92,14 @@ body {
   display: flex;
   justify-content: end;
   align-items: end;
+}
+.cardbody {
+  padding-left: 10px;
+  color: #fff;
+  font-size: 18px;
+}
+@media screen and (max-width: 992px) {
+  .card1 img {
+    display: none;
+  }
 }
