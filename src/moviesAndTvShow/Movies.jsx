@@ -51,7 +51,7 @@ const Movies = () => {
     <div>
       <NavBar />
       <div className="container" style={{ marginTop: 100 }}>
-        {movie[1]?.map((num, i) => (
+        {movie[0]?.map((num, i) => (
           <div class="card card2" key={i}>
             <Link to="/singlemoviedata">
               <img
@@ -95,10 +95,15 @@ const Movies = () => {
           </div>
         ))}
       </div>
-      <button onClick={loadMore} style={{ marginTop: 500 }}>
-        Load More
-      </button>
-      s
+      <div class="container vertical" style={{ marginTop: 50 }}>
+        <div className="vertical">
+          <div class="vertical-center">
+            <button type="button" class="btn btn-danger">
+              Load More
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

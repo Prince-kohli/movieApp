@@ -103,3 +103,12 @@ body {
     display: none;
   }
 }
+.vertical-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50);
+}
+.vertical {
+  height: 200px;
+  position: relative;
+}
