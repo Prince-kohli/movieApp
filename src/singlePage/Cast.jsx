@@ -34,11 +34,11 @@ const Cast = () => {
       });
   }, []);
   return (
-    <div className="container" style={{ marginTop: 10 }}>
+    <div className="" style={{ marginTop: 10 }}>
       <h1 style={{ color: "white" }}>Top Cast</h1>
 
       <div className="sponsor-action section-bg">
-        <div className="container">
+        <div className="">
           <div className="section-wrapper">
             <div className="sponsoer-slider">
               <Swiper

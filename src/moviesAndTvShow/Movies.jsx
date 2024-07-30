@@ -51,7 +51,7 @@ const Movies = () => {
     <div>
       <NavBar />
       <div className="container" style={{ marginTop: 100 }}>
-        {movie[pageNumber]?.map((num, i) => (
+        {movie[1]?.map((num, i) => (
           <div class="card card2" key={i}>
             <Link to="/singlemoviedata">
               <img
