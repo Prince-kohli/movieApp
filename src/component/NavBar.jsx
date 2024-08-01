@@ -1,7 +1,11 @@
+import { useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
   return (
     <div>
       <nav class="navbar navbar-expand-lg ">
@@ -14,46 +18,50 @@ const NavBar = () => {
             />
           </Link>
           <button
-            class="navbar-toggler"
+            class=" custom-toggler navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
+            data-toggle="collapse"
+            data-target="#navbarNav"
             aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded={!isNavCollapsed ? true : false}
             aria-label="Toggle navigation"
+            onClick={handleNavCollapse}
             style={{ backgroundColor: "white" }}
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div
+            class={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
+            id="navbarNav"
+          >
             <ul class="navbar-nav">
               <li class="nav-item">
                 <Link
                   class="nav-link active"
                   aria-current="page"
                   to="/movies"
-                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
+                  style={{ color: "white", marginLeft: 10 }}
                 >
                   Movies
                 </Link>
               </li>
               <li class="nav-item">
-                <a
+                <Link
                   class="nav-link"
-                  href="#"
-                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
+                  to="/tvshows"
+                  style={{ color: "white", marginLeft: 5 }}
                 >
-                  Tv Shows
-                </a>
+                  TvShows
+                </Link>
               </li>
               <li class="nav-item">
-                <a
+                <Link
                   class="nav-link"
-                  href="#"
-                  style={{ color: "white", fontSize: 20, marginLeft: 10 }}
+                  to="/webseries"
+                  style={{ color: "white", marginLeft: 5 }}
                 >
-                  Upcoming
-                </a>
+                  WebSeries
+                </Link>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -62,13 +70,13 @@ const NavBar = () => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                style={{ marginLeft: 15, width: 450 }}
+                style={{ marginLeft: 15 }}
               />
             </form>
             <button
               class="btn btn-outline-success my-2 my-sm-0"
               type="submit"
-              style={{ marginLeft: 5 }}
+              style={{ marginLeft: 25 }}
             >
               Search
             </button>

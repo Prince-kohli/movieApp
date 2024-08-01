@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const Banner = () => {
   const [upcoming, setUpcoming] = useState([]);
-  // console.log("data", upcoming);
+  console.log("data", upcoming);
   const url = useSelector((state) => state.url.url);
   // console.log("url", url.backdrop);
 
@@ -166,7 +174,7 @@ const Banner = () => {
           </div>
         </>
 
-        {/* <button
+        <button
           class="carousel-control-prev"
           type="button"
           data-bs-target="#carouselExampleAutoplaying"
@@ -183,7 +191,7 @@ const Banner = () => {
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-        </button> */}
+        </button>
       </div>
     </div>
   );

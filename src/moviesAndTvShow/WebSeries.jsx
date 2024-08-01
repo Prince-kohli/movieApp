@@ -6,59 +6,33 @@ import { useSelector, useDispatch } from "react-redux";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getData } from "../store/UrlSlice";
+import ReactPaginate from "react-paginate";
 import Footer from "../component/Footer";
-const Movies = () => {
-  const [movie, setMovie] = useState([]);
+
+const WebSeries = () => {
+  const [web, setWeb] = useState([]);
+  const [shows, setShows] = useState([]);
+  const [itemOffset, setItemOffset] = useState(0);
   const [genre, setgenre] = useState([]);
-  const [moviegenre, setMovieGenre] = useState([]);
+  const [page, setpage] = useState(1);
   const url = useSelector((state) => state.url.url);
-  const [pageNumber, setPageNumber] = useState(1);
-
   const dispatch = useDispatch();
-  console.log("movi", movie);
-  console.log("genre", genre);
+  const [data, setData] = useState([]);
+  // console.log(data);
 
-  const loadMore = () => {
-    setPageNumber(pageNumber + 1);
-  };
+  const totalPageNo = data.total_pages;
+  console.log("page", page);
+
   const options = {
     method: "GET",
-    url: `https://api.themoviedb.org/3/discover/movie?api_key=0baaf3d8d4221b1e459dbb0144e9446d&page=${pageNumber}`,
+    url: `https://api.themoviedb.org/3/discover/tv?api_key=0baaf3d8d4221b1e459dbb0144e9446d&page=${page}`,
     params: {
       include_adult: "false",
-      include_video: "false",
+      include_null_first_air_dates: "false",
       language: "en-US",
-      // page: pageNumber,
-      sort_by: genre,
+      // page: "1",
+      sort_by: "popularity.desc",
     },
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjIyNzEyOS4yMzU3ODUsInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1IOBABlORL1Ouu-jRkyZ1wxsDgISFKgVZI-j5FZFfuw",
-    },
-  };
-
-  useEffect(() => {
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log("res", response.data);
-        setMovie((prev) => [...prev, ...response?.data.results]);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, [pageNumber]);
-
-  const getdata = (num) => {
-    // console.log("num", num);
-    dispatch(getData(num));
-  };
-
-  const options1 = {
-    method: "GET",
-    url: `https://api.themoviedb.org/3/genre/movie/list`,
-    params: { language: "en" },
     headers: {
       accept: "application/json",
       Authorization:
@@ -68,69 +42,115 @@ const Movies = () => {
 
   useEffect(() => {
     axios
+      .request(options)
+      .then(function (response) {
+        console.log("wev", response.data);
+        setWeb(response.data.results);
+        setData(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, [page]);
+  const getdata = (num) => {
+    dispatch(getData(num));
+  };
+  const itemsPerPage = 20;
+  const endOffset = itemOffset + itemsPerPage;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = web.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(web.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setpage(selected + 1);
+  };
+
+  const options1 = {
+    method: "GET",
+    url: "https://api.themoviedb.org/3/genre/tv/list",
+    params: { language: "en" },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjQ5OTQyMS4yOTM1MjksInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tpi_Du61YRwflfK5fVTjazHEGNk6mKqVUNXbObm-HsA",
+    },
+  };
+
+  useEffect(() => {
+    axios
       .request(options1)
       .then(function (response) {
-        // console.log(response.data);
-        setgenre(response.data.genres);
+        console.log(response.data);
+        setgenre(response?.data?.genres);
       })
       .catch(function (error) {
         console.error(error);
       });
   }, []);
-
   const action = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 28);
+    const id = web?.filter((num) => num.genre_ids[0] === 10759);
 
-    setMovieGenre(id);
-  };
-
-  const adventure = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 12);
-    setMovieGenre(id);
+    setShows(id);
   };
   const animation = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 16);
-    setMovieGenre(id);
+    const id = web?.filter((num) => num.genre_ids[0] === 16);
+
+    setShows(id);
   };
   const comedy = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 35);
-    setMovieGenre(id);
+    const id = web?.filter((num) => num.genre_ids[0] === 35);
+
+    setShows(id);
   };
-  const Crime = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 80);
-    setMovieGenre(id);
+  const crime = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 80);
+
+    setShows(id);
   };
   const documentary = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 99);
-    setMovieGenre(id);
+    const id = web?.filter((num) => num.genre_ids[0] === 99);
+
+    setShows(id);
   };
   const family = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 10751);
-    setMovieGenre(id);
+    const id = web?.filter((num) => num.genre_ids[0] === 10751);
+
+    setShows(id);
   };
-  const history = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 36);
-    setMovieGenre(id);
-  };
-  const horro = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 26);
-    setMovieGenre(id);
-  };
-  const sciencefiction = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 26);
-    setMovieGenre(id);
-  };
-  const war = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 10752);
-    setMovieGenre(id);
-  };
-  const thriller = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 53);
-    setMovieGenre(id);
+  const kids = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10762);
+
+    setShows(id);
   };
   const mystery = () => {
-    const id = movie.filter((num) => num.genre_ids[0] === 9648);
-    setMovieGenre(id);
+    const id = web?.filter((num) => num.genre_ids[0] === 9648);
+
+    setShows(id);
+  };
+  const news = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10763);
+
+    setShows(id);
+  };
+  const reality = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10764);
+
+    setShows(id);
+  };
+  const soap = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10766);
+
+    setShows(id);
+  };
+  const talk = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10767);
+
+    setShows(id);
+  };
+  const war = () => {
+    const id = web?.filter((num) => num.genre_ids[0] === 10768);
+
+    setShows(id);
   };
 
   return (
@@ -148,22 +168,18 @@ const Movies = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Filter Movies
+                Filter TvShows
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <a class="dropdown-item" onClick={action}>
-                    Action
+                    Action & Adventure
                   </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" onClick={adventure}>
-                    adventure
-                  </a>
-                </li>
+
                 <li>
                   <a class="dropdown-item" onClick={animation}>
-                    animation
+                    Animation
                   </a>
                 </li>
                 <li>
@@ -172,7 +188,7 @@ const Movies = () => {
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={Crime}>
+                  <a class="dropdown-item" onClick={crime}>
                     Crime
                   </a>
                 </li>
@@ -183,32 +199,32 @@ const Movies = () => {
                 </li>
                 <li>
                   <a class="dropdown-item" onClick={family}>
-                    family
+                    Family
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={history}>
-                    History
+                  <a class="dropdown-item" onClick={kids}>
+                    Kids
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={horro}>
-                    Horro
+                  <a class="dropdown-item" onClick={news}>
+                    News
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={sciencefiction}>
-                    Science Fiction
+                  <a class="dropdown-item" onClick={reality}>
+                    Reality
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={war}>
-                    War
+                  <a class="dropdown-item" onClick={soap}>
+                    Soap
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" onClick={thriller}>
-                    Thriller
+                  <a class="dropdown-item" onClick={talk}>
+                    Talk
                   </a>
                 </li>
                 <li>
@@ -216,16 +232,20 @@ const Movies = () => {
                     Mystery
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item" onClick={war}>
+                    War & Politics
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="container cards" style={{ marginTop: 20 }}>
-        {moviegenre.length === 0
-          ? movie?.map((num) => (
-              <div class="card card2" onClick={() => getdata(num)}>
+      <div className="container cards" style={{ marginTop: 10 }}>
+        {shows.length === 0
+          ? web?.map((num, i) => (
+              <div class="card card2" key={i} onClick={() => getdata(num)}>
                 <Link to="/singlemoviedata">
                   <img
                     src={url.backdrop + num?.poster_path}
@@ -270,8 +290,8 @@ const Movies = () => {
                 </div>
               </div>
             ))
-          : moviegenre?.map((num) => (
-              <div class="card card2" onClick={() => getdata(num)}>
+          : shows?.map((num, i) => (
+              <div class="card card2" key={i} onClick={() => getdata(num)}>
                 <Link to="/singlemoviedata">
                   <img
                     src={url.backdrop + num?.poster_path}
@@ -316,19 +336,33 @@ const Movies = () => {
                 </div>
               </div>
             ))}
-      </div>
-      <div class="container vertical" style={{ marginTop: 50 }}>
-        <div className="vertical">
-          <div class="vertical-center">
-            <button type="button" class="btn btn-danger" onClick={loadMore}>
-              Load More
-            </button>
-          </div>
+
+        <div className="page" style={{ marginTop: 30 }}>
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            pageCount={totalPageNo}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
+
       <Footer />
     </div>
   );
 };
 
-export default Movies;
+export default WebSeries;

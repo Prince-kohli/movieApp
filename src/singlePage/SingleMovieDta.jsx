@@ -1,18 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../component/NavBar";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import YouTube from "react-youtube";
 
 const SingleMovieDta = () => {
   const data = useSelector((state) => state.url.data);
   const url = useSelector((state) => state.url.url);
-  console.log("url", url.backdrop);
-  console.log("data", data);
+  const [video, setVideo] = useState([]);
+  const [tvVideo, setTvVideo] = useState([]);
+  const [show, setShow] = useState(false);
+  console.log("url", data);
+  console.log("video", video.key);
 
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/movie/${data.id}/videos`,
+    params: { language: "en-US" },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjQ5OTQyMS4yOTM1MjksInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tpi_Du61YRwflfK5fVTjazHEGNk6mKqVUNXbObm-HsA",
+    },
+  };
+  useEffect(() => {
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log("MOVIE", response.data);
+        setVideo(...response.data.results);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, [data]);
+
+  const options1 = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/tv/${data.id}/videos`,
+    params: { language: "en-US" },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjQ5OTQyMS4yOTM1MjksInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tpi_Du61YRwflfK5fVTjazHEGNk6mKqVUNXbObm-HsA",
+    },
+  };
+
+  axios
+    .request(options1)
+    .then(function (response) {
+      console.log("tv", response.data);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   return (
     <div>
       <NavBar />
 
-      <div className="   image">
+      <div className="image">
         <img className="img" src={url.backdrop + data?.backdrop_path} />
       </div>
 
@@ -38,13 +84,6 @@ const SingleMovieDta = () => {
                     <h5 class="card-title">{data?.original_title}</h5>
                   )}
 
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    style={{ marginTop: 20 }}
-                  >
-                    Watch Trailer
-                  </button>
                   <p class="card-text" style={{ marginTop: 30 }}>
                     {data?.overview}
                   </p>
@@ -58,6 +97,20 @@ const SingleMovieDta = () => {
                       Release Date {data?.release_date}
                     </h5>
                   )}
+
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShow(true)}
+                  >
+                    Watch Trailer
+                  </button>
+
+                  <div className="youtube">
+                    {show == true ? (
+                      <button onClick={() => setShow(false)}>close</button>
+                    ) : null}
+                    {show === true ? <YouTube videoId={video.key} /> : null}
+                  </div>
                 </div>
               </div>
             </div>

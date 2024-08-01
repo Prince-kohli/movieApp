@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 const Cast = () => {
   const [cast, setCast] = useState([]);
-  console.log("cast", cast);
+  // console.log("cast", cast);
   const data = useSelector((state) => state.url.data);
   const url = useSelector((state) => state.url.url);
 
@@ -26,7 +26,29 @@ const Cast = () => {
     axios
       .request(options)
       .then(function (response) {
-        console.log("cast", response.data);
+        // console.log("cast", response.data);
+        setCast(response?.data?.cast);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
+
+  const options1 = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/tv/${data.id}/credits`,
+    params: { language: "en-US" },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjQxMTI3Ni4zNzUyNTQsInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R66cgEuUFr_EbRgCphQ79rXkb6UbMCp4sUzZFwTyrzs",
+    },
+  };
+  useEffect(() => {
+    axios
+      .request(options1)
+      .then(function (response) {
+        // console.log(response.data);
         setCast(response?.data?.cast);
       })
       .catch(function (error) {
@@ -34,7 +56,7 @@ const Cast = () => {
       });
   }, []);
   return (
-    <div className="" style={{ marginTop: 10 }}>
+    <div className="" style={{ marginTop: 10, textAlign: "center" }}>
       <h1 style={{ color: "white" }}>Top Cast</h1>
 
       <div className="sponsor-action section-bg">

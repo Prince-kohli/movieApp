@@ -3,12 +3,33 @@ body {
 }
 
 .navbar {
-  font-size: large;
   position: absolute;
   top: 0px;
   z-index: 10;
   width: 100%;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+@media screen and (max-width: 1400px) {
+  .form-control {
+    width: 440px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .form-control {
+    width: 300px;
+  }
+}
+
+@media screen And (max-width: 1400px) {
+  .nav-link {
+    font-size: 20px;
+  }
+}
+@media screen And (max-width: 1300px) {
+  .nav-link {
+    font-size: 10px;
+  }
 }
 
 .carousel-item img {
@@ -85,7 +106,15 @@ body {
 .card2 {
   display: inline-flex;
   margin-top: 30px;
-  margin-left: 10px;
+  margin-left: 23px;
+}
+
+@media screen and (max-width: 600px) {
+  .cards {
+    margin-left: 14%;
+    margin-right: 22%;
+    width: auto;
+  }
 }
 
 .button {
@@ -111,4 +140,20 @@ body {
 .vertical {
   height: 200px;
   position: relative;
+}
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+.youtube {
+  position: absolute;
+  bottom: 50px;
+  right: 40px;
 }

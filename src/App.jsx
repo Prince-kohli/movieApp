@@ -7,6 +7,8 @@ import { getUrl } from "./store/UrlSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Movies from "./moviesAndTvShow/Movies";
 import SinglePage from "./singlePage/SinglePage";
+import TvShows from "./moviesAndTvShow/TvShows";
+import WebSeries from "./moviesAndTvShow/WebSeries";
 function App() {
   const dispatch = useDispatch();
   const options = {
@@ -47,6 +49,8 @@ function App() {
           <Route path="/movies" element={<Movies />} />
           <Route path="/singlemoviedata" element={<SinglePage />} />
           <Route path="/movieall" element={<MoviesAll />} />
+          <Route path="/tvshows" element={<TvShows />} />
+          <Route path="/webseries" element={<WebSeries />} />
         </Routes>
       </BrowserRouter>
     </div>

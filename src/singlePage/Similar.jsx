@@ -38,6 +38,28 @@ const Similar = () => {
       });
   }, []);
 
+  const options1 = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/tv/${data.id}/similar`,
+    params: { language: "en-US", page: "1" },
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYmFhZjNkOGQ0MjIxYjFlNDU5ZGJiMDE0NGU5NDQ2ZCIsIm5iZiI6MTcyMjQxMTI3Ni4zNzUyNTQsInN1YiI6IjY2YTA3OWNmMWM2MjY4NTFjOTQwMzc3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R66cgEuUFr_EbRgCphQ79rXkb6UbMCp4sUzZFwTyrzs",
+    },
+  };
+  useEffect(() => {
+    axios
+      .request(options1)
+      .then(function (response) {
+        console.log("resp", response.data);
+        setsimilar(response.data.results);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
