@@ -81,7 +81,7 @@ body {
   opacity: 1;
   max-width: 740px;
   position: absolute;
-  top: 150px;
+  top: 180px;
   z-index: 10;
   align-items: center;
   float: left;
@@ -156,4 +156,67 @@ body {
   position: absolute;
   bottom: 50px;
   right: 40px;
+}
+
+.close {
+  margin-left: 98%;
+  height: 2px;
+  width: 2px;
+}
+
+.searchBox {
+  position: absolute;
+  color: #fff;
+  top: 80px;
+  right: 23%;
+  font-size: 18px;
+  /* background-color: rgb(4, 21, 45); */
+  background-color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 40px;
+}
+
+.card3 {
+  width: 350px;
+  height: 120px;
+}
+
+.card3 img {
+  height: 120px;
+  width: 130px;
+}
+
+.load {
+  color: #fff;
+  font-family: Sans-serif;
+  margin-left: 35%;
+  padding-bottom: 10px;
+}
+
+.shiw {
+  margin-top: 10px;
+  color: #fff;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 100px;
+  margin-left: 50%;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

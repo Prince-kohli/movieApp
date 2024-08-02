@@ -7,8 +7,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getData } from "../store/UrlSlice";
 const MoviesAll = () => {
-  const more = useSelector((state) => state.url.more);
-  const url = useSelector((state) => state.url.url);
+  const more = useSelector((state) => state?.url?.more);
+  const url = useSelector((state) => state?.url?.url);
   console.log("more", more);
   const dispatch = useDispatch();
 
@@ -19,22 +19,31 @@ const MoviesAll = () => {
     <div>
       <NavBar />
       <div className="container" style={{ marginTop: 100 }}>
-        {more?.map((num) => (
-          <div class="card card2" onClick={() => getdata(num)}>
+        {more?.map((num, i) => (
+          <div class="card card2" onClick={() => getdata(num)} key={i}>
             <Link to="/singlemoviedata">
-              <img
-                src={url.backdrop + num?.poster_path}
-                class="card-img-top"
-                alt="..."
-                style={{ height: 300 }}
-              />
+              {!num?.poster_path ? (
+                <img
+                  src="https://movix-peach-ten.vercel.app/assets/no-poster-DjFr0uax.png"
+                  class="card-img-top"
+                  alt="..."
+                  style={{ height: 300 }}
+                />
+              ) : (
+                <img
+                  src={url.backdrop + num?.poster_path}
+                  class="card-img-top"
+                  alt="..."
+                  style={{ height: 300 }}
+                />
+              )}
             </Link>
             <div class="card">
               <div className="circleRating" style={{ height: 30, width: 50 }}>
                 <CircularProgressbar
                   value={num?.vote_average}
                   maxValue={10}
-                  text={num?.vote_average.toFixed(1)}
+                  text={num?.vote_average?.toFixed(1)}
                   styles={buildStyles({
                     pathColor:
                       num?.vote_average < 5

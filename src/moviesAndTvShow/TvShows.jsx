@@ -17,8 +17,8 @@ const TvShows = () => {
   const url = useSelector((state) => state.url.url);
   const dispatch = useDispatch();
 
-  console.log("tv", tv);
-  console.log("gen", genre);
+  // console.log("tv", tv);
+  // console.log("gen", genre);
 
   const fetchData = () => {
     const options = {
@@ -91,7 +91,7 @@ const TvShows = () => {
     axios
       .request(options1)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setgenre(response?.data?.genres);
       })
       .catch(function (error) {

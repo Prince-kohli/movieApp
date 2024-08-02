@@ -87,28 +87,30 @@ const Similar = () => {
   return (
     <div>
       <div className="container">
-        <h1 style={{ marginTop: 30, color: "white", fontFamily: "fantasy" }}>
-          Similar
-        </h1>
+        {similar.length === 0 ? null : (
+          <h1 style={{ marginTop: 30, color: "white", fontFamily: "fantasy" }}>
+            Similar
+          </h1>
+        )}
       </div>
       <div className="container" style={{ marginTop: 20 }}>
         <Carousel responsive={responsive}>
           {similar?.map((num) => (
             <div class="card" onClick={() => getdata(num)}>
               <Link to="/singlemoviedata">
-                {num.num?.poster_path !== num ? (
+                {!num?.poster_path ? (
+                  <img
+                    src="https://movix-peach-ten.vercel.app/assets/no-poster-DjFr0uax.png"
+                    class="card-img-top"
+                    alt="..."
+                    height={300}
+                  />
+                ) : (
                   <img
                     src={url.backdrop + num?.poster_path}
                     class="card-img-top"
                     alt="..."
-                    style={{ height: 300 }}
-                  />
-                ) : (
-                  <img
-                    src="https://www.w3schools.com/howto/img_avatar.png"
-                    class="card-img-top"
-                    alt="..."
-                    style={{ height: 300 }}
+                    height={300}
                   />
                 )}
               </Link>

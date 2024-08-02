@@ -93,12 +93,21 @@ const Recommendations = () => {
           {recomend?.map((num) => (
             <div class="card" onClick={() => getdata(num)}>
               <Link to="/singlemoviedata">
-                <img
-                  src={url.backdrop + num?.poster_path}
-                  class="card-img-top"
-                  alt="..."
-                  style={{ height: 300 }}
-                />
+                {!num?.poster_path ? (
+                  <img
+                    src="https://movix-peach-ten.vercel.app/assets/no-poster-DjFr0uax.png"
+                    class="card-img-top"
+                    alt="..."
+                    height={300}
+                  />
+                ) : (
+                  <img
+                    src={url.backdrop + num?.poster_path}
+                    class="card-img-top"
+                    alt="..."
+                    height={300}
+                  />
+                )}
               </Link>
               <div class="card">
                 <div className="circleRating" style={{ height: 30, width: 50 }}>
