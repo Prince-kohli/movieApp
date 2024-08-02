@@ -57,7 +57,7 @@ const Cast = () => {
   }, []);
   return (
     <div className="" style={{ marginTop: 10, textAlign: "center" }}>
-      <h1 style={{ color: "white" }}>Top Cast</h1>
+      {cast.length === 0 ? null : <h1 style={{ color: "white" }}>Top Cast</h1>}
 
       <div className="sponsor-action section-bg">
         <div className="">

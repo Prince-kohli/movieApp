@@ -56,6 +56,7 @@ const SingleMovieDta = () => {
         console.error(error);
       });
   }, [data]);
+
   return (
     <div>
       <NavBar />
