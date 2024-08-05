@@ -10,8 +10,8 @@ const NavBar = () => {
   const [movieData, setMovieData] = useState([]);
   const url = useSelector((state) => state.url.url);
   const dispatch = useDispatch();
-  console.log("movie", movieData);
-  console.log("sr", search);
+  // console.log("movie", movieData.title);
+  // console.log("sr", search);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   const options = {
@@ -71,7 +71,11 @@ const NavBar = () => {
             onClick={handleNavCollapse}
             style={{ backgroundColor: "white" }}
           >
-            <span class="navbar-toggler-icon"></span>
+            {!isNavCollapsed ? (
+              <i class="fa-solid fa-x"></i>
+            ) : (
+              <span class="navbar-toggler-icon"></span>
+            )}
           </button>
           <div
             class={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
@@ -132,7 +136,7 @@ const NavBar = () => {
 
         {search?.length === undefined ? null : (
           <div className="searchBox">
-            {movieData?.slice(0, 3)?.map((num) => (
+            {movieData?.slice(0, 4)?.map((num) => (
               <div className="card card3 mb-3">
                 <div className="row g-0">
                   <div className="col-md-4" onClick={() => get(num)}>
@@ -155,16 +159,14 @@ const NavBar = () => {
                   <div className="col-md-8">
                     <div className="card-body">
                       {!num?.original_title ? (
-                        <h5 class="card-title nav-link">
-                          {num?.original_name}
-                        </h5>
+                        <h5 class=" card-title  ">{num?.original_name}</h5>
                       ) : (
                         <h5 class="card-title">{num?.original_title}</h5>
                       )}
                       <p className="card-text">
                         <button
                           className="btn btn-warning"
-                          style={{ fontSize: 12 }}
+                          style={{ fontSize: 9 }}
                         >
                           Release Date{" "}
                         </button>{" "}
@@ -175,7 +177,6 @@ const NavBar = () => {
                     </div>
                   </div>
                   <div className="shiw">
-                    {" "}
                     <Link to="/movieall">
                       <button
                         className="load btn btn-link"

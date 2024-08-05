@@ -20,8 +20,8 @@ const WebSeries = () => {
   const [data, setData] = useState([]);
   // console.log(data);
 
-  const totalPageNo = data.total_pages;
-  console.log("page", page);
+  const totalPageNo = data?.total_pages;
+  console.log("page", totalPageNo);
 
   const options = {
     method: "GET",
@@ -55,11 +55,11 @@ const WebSeries = () => {
   const getdata = (num) => {
     dispatch(getData(num));
   };
-  const itemsPerPage = 20;
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = web.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(web.length / itemsPerPage);
+  // const itemsPerPage = 20;
+  // const endOffset = itemOffset + itemsPerPage;
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // const currentItems = web.slice(itemOffset, endOffset);
+  // const pageCount = Math.ceil(web.length / itemsPerPage);
 
   const handlePageClick = ({ selected }) => {
     setpage(selected + 1);
@@ -247,12 +247,21 @@ const WebSeries = () => {
           ? web?.map((num, i) => (
               <div class="card card2" key={i} onClick={() => getdata(num)}>
                 <Link to="/singlemoviedata">
-                  <img
-                    src={url.backdrop + num?.poster_path}
-                    class="card-img-top"
-                    alt="..."
-                    style={{ height: 300 }}
-                  />
+                  {!num?.poster_path ? (
+                    <img
+                      src="https://movix-peach-ten.vercel.app/assets/no-poster-DjFr0uax.png"
+                      class="card-img-top"
+                      alt="..."
+                      style={{ height: 300 }}
+                    />
+                  ) : (
+                    <img
+                      src={url.backdrop + num?.poster_path}
+                      class="card-img-top"
+                      alt="..."
+                      style={{ height: 300 }}
+                    />
+                  )}
                 </Link>
                 <div class="card">
                   <div
@@ -262,7 +271,7 @@ const WebSeries = () => {
                     <CircularProgressbar
                       value={num?.vote_average}
                       maxValue={10}
-                      text={num?.vote_average}
+                      text={num?.vote_average?.toFixed(1)}
                       styles={buildStyles({
                         pathColor:
                           num?.vote_average < 5
@@ -336,7 +345,10 @@ const WebSeries = () => {
                 </div>
               </div>
             ))}
-
+      </div>
+      {web === "" ? (
+        <h1 style={{ textAlign: "center", color: "white" }}>Loading....</h1>
+      ) : (
         <div className="page" style={{ marginTop: 30 }}>
           <ReactPaginate
             previousLabel={"Previous"}
@@ -358,8 +370,8 @@ const WebSeries = () => {
             activeClassName={"active"}
           />
         </div>
-      </div>
-
+      )}
+      <div style={{ marginTop: 232 }}></div>
       <Footer />
     </div>
   );

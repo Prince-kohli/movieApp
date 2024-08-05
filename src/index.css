@@ -26,9 +26,32 @@ body {
     font-size: 20px;
   }
 }
-@media screen And (max-width: 1300px) {
+@media screen And (max-width: 1200px) {
   .nav-link {
-    font-size: 10px;
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .navbar-collapse {
+    background: rgb(0, 0, 0);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .searchBox {
+    margin-top: 190px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .card3 {
+    width: 350px;
+    height: 50px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .card3 .card-body {
+    font-size: small;
+    color: black;
   }
 }
 
@@ -56,6 +79,12 @@ body {
   width: 16rem;
   height: 440px;
 }
+@media only screen and (max-width: 768px) {
+  .card {
+    width: 12rem;
+  }
+}
+
 .footer {
   display: inline flex;
 }
@@ -154,9 +183,16 @@ body {
 }
 .youtube {
   position: absolute;
-  bottom: 50px;
-  right: 40px;
+  top: 0px;
 }
+
+/* @media only screen and (max-width: 768px) {
+  iframe {
+    margin-left: 0%;
+    width: 300px;
+    align-items: center;
+  }
+} */
 
 .close {
   margin-left: 98%;
@@ -180,11 +216,11 @@ body {
 
 .card3 {
   width: 350px;
-  height: 120px;
+  height: 100px;
 }
 
 .card3 img {
-  height: 120px;
+  height: 100px;
   width: 130px;
 }
 
@@ -192,13 +228,31 @@ body {
   color: #fff;
   font-family: Sans-serif;
   margin-left: 35%;
-  padding-bottom: 10px;
+  /* padding-bottom: 2px; */
+}
+@media only screen and (max-width: 768px) {
+  .load {
+    margin-top: 5px;
+  }
+}
+iframe {
+  height: 450px;
+  width: 100%;
 }
 
-.shiw {
+@media only screen and (max-width: 768px) {
+  .modal-content {
+    width: 400px;
+    margin-top: 100px;
+    height: 300px;
+    margin-left: 7%;
+  }
+}
+
+/* .shiw {
   margin-top: 10px;
   color: #fff;
-}
+} */
 .loader {
   width: 48px;
   height: 48px;

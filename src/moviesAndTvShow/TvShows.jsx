@@ -259,12 +259,21 @@ const TvShows = () => {
           ? tv?.map((num, i) => (
               <div class="card card2" key={i} onClick={() => getdata(num)}>
                 <Link to="/singlemoviedata">
-                  <img
-                    src={url.backdrop + num?.poster_path}
-                    class="card-img-top"
-                    alt="..."
-                    style={{ height: 300 }}
-                  />
+                  {!num?.poster_path ? (
+                    <img
+                      src="https://movix-peach-ten.vercel.app/assets/no-poster-DjFr0uax.png"
+                      class="card-img-top"
+                      alt="..."
+                      style={{ height: 300 }}
+                    />
+                  ) : (
+                    <img
+                      src={url.backdrop + num?.poster_path}
+                      class="card-img-top"
+                      alt="..."
+                      style={{ height: 300 }}
+                    />
+                  )}
                 </Link>
                 <div class="card">
                   <div
@@ -320,7 +329,7 @@ const TvShows = () => {
                     <CircularProgressbar
                       value={num?.vote_average}
                       maxValue={10}
-                      text={num?.vote_average}
+                      text={num?.vote_average?.toFixed(1)}
                       styles={buildStyles({
                         pathColor:
                           num?.vote_average < 5

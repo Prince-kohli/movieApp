@@ -4,14 +4,14 @@ import Cast from "./Cast";
 import Similar from "./Similar";
 import Recommendations from "./Recommendations";
 import Footer from "../component/Footer";
-import Official from "./Official";
+// import Official from "./Official";
 
 const SinglePage = () => {
   return (
     <div>
       <SingleMovieDta />
       <Cast />
-      <Official />
+      {/* <Official /> */}
       <Similar />
       <Recommendations />
       <Footer />

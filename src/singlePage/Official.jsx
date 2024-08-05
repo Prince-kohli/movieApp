@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Carousel from "react-multi-carousel";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Official = () => {
   const data = useSelector((state) => state.url.data);
   const url = useSelector((state) => state.url.url);
@@ -48,14 +50,13 @@ const Official = () => {
     },
   };
   return (
-    <div>
-      <div className="container">
-        <h1 style={{ marginTop: 30, color: "white", fontFamily: "fantasy" }}>
-          Official videos
-        </h1>
-      </div>
-      {/* <Carousel responsive={responsive}>
-        <div class="card">
+    <div className="container   ">
+      <h1 style={{ marginTop: 30, color: "white", fontFamily: "fantasy" }}>
+        Official videos
+      </h1>
+
+      <Carousel responsive={responsive}>
+        <div class="card4" style={{ height: 100, width: 100 }}>
           <Link to="/singlemoviedata">
             <img
               src=""
@@ -64,11 +65,11 @@ const Official = () => {
               style={{ height: 300 }}
             />
           </Link>
-          <div class="card">
+          {/* <div class="card">
             <h6 class="card-title"></h6>
-          </div>
+          </div> */}
         </div>
-      </Carousel> */}
+      </Carousel>
     </div>
   );
 };
