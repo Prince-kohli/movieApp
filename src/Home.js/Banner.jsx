@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { getData } from "../store/UrlSlice";
+import { Link } from "react-router-dom";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,7 +20,7 @@ const Banner = () => {
   console.log("data", upcoming);
   const url = useSelector((state) => state.url.url);
   // console.log("url", url.backdrop);
-
+  const dispatch = useDispatch();
   const img = upcoming.map((num) => url.backdrop + num?.poster_path);
 
   const title = upcoming.map((num) => num?.title);
@@ -44,9 +49,65 @@ const Banner = () => {
       });
   }, []);
 
+  const getdata = (num) => {
+    // console.log("num", num);
+    dispatch(getData(num));
+  };
+
   return (
     <div>
-      <div
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={20}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          767: {
+            slidesPerView: 1,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 1,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Autoplay]}
+        className="mySwiper"
+      >
+        {upcoming?.map((num, i) => (
+          <SwiperSlide key={i}>
+            <div className="carousal" key={i}>
+              <img
+                className="img"
+                src={url.backdrop + num?.backdrop_path}
+                class="d-block w-100"
+                alt="..."
+              />
+              <div className="container title">
+                <h1 style={{ textAlign: "left" }}>{num?.original_title}</h1>
+                <h3 style={{ textAlign: "left" }}>
+                  Release date {num?.release_date}
+                </h3>
+                <p style={{ textAlign: "left" }}>
+                  {num?.overview?.substring(0, 150)}......
+                </p>
+                <Link to="/singlemoviedata">
+                  <button class="btn btn-primary" onClick={() => getdata(num)}>
+                    Watch Trailer
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {/* <div
         id="carouselExampleAutoplaying"
         class="carousel slide"
         data-bs-ride="carousel"
@@ -72,7 +133,6 @@ const Banner = () => {
                 src={img[2]}
                 class="d-block w-100"
                 alt="..."
-                sizes={url.size}
               />
               <div className="container title">
                 <h1>{title[2]}</h1>
@@ -192,7 +252,7 @@ const Banner = () => {
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

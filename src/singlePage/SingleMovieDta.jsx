@@ -7,7 +7,6 @@ const SingleMovieDta = () => {
   const data = useSelector((state) => state.url.data);
   const url = useSelector((state) => state.url.url);
   const [video, setVideo] = useState([]);
-  const [datas, setDatas] = useState([]);
 
   const [show, setShow] = useState(false);
   console.log("url", video?.key);
@@ -122,8 +121,45 @@ const SingleMovieDta = () => {
           </div>
         </div>
       </div>
-
-      <div className="image">
+      <section className="hero">
+        <div>
+          <img
+            className="gero-bg"
+            src={url.backdrop + data?.backdrop_path}
+            alt=""
+          />
+        </div>
+        <div className="row hero-content">
+          <div className="col-md-4 hero-content-left">
+            <img src={url.backdrop + data.poster_path} alt="" />
+          </div>
+          <div class="col-md-8 hero-content-right">
+            <h2>
+              {!data?.original_title ? (
+                <h5 class="card-title" style={{ fontSize: "large" }}>
+                  {data?.original_name}
+                </h5>
+              ) : (
+                <h5 class="card-title">{data?.original_title}</h5>
+              )}
+            </h2>
+            <p>{data?.overview}</p>
+            <span>
+              Release Date
+              {!data?.release_date ? data?.first_air_date : data?.release_date}
+            </span>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              Watch Trailer
+            </button>
+          </div>
+        </div>
+      </section>
+      {/* <div className="image">
         <img className="img" src={url.backdrop + data?.backdrop_path} />
       </div>
       <div className="container ">
@@ -182,7 +218,7 @@ const SingleMovieDta = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

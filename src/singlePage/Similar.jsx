@@ -96,7 +96,7 @@ const Similar = () => {
       <div className="container" style={{ marginTop: 20 }}>
         <Carousel responsive={responsive}>
           {similar?.map((num) => (
-            <div class="card" onClick={() => getdata(num)}>
+            <div class="card card4" onClick={() => getdata(num)}>
               <Link to="/singlemoviedata">
                 {!num?.poster_path ? (
                   <img
@@ -114,7 +114,7 @@ const Similar = () => {
                   />
                 )}
               </Link>
-              <div class="card">
+              <div class="card card4">
                 <div className="circleRating" style={{ height: 30, width: 50 }}>
                   <CircularProgressbar
                     value={num?.vote_average}
