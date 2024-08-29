@@ -327,19 +327,16 @@ const Movies = () => {
             ))}
       </div>
 
-      {moviegenre == "" ? (
-        <h1 style={{ textAlign: "center", color: "white" }}>Loading....</h1>
-      ) : (
-        <div class="container vertical" style={{ marginTop: 50 }}>
-          <div className="vertical">
-            <div class="vertical-center">
-              <button type="button" class="btn btn-danger" onClick={loadMore}>
-                Load More
-              </button>
-            </div>
+      <div class="container vertical" style={{ marginTop: 50 }}>
+        <div className="vertical">
+          <div class="vertical-center">
+            <button type="button" class="btn btn-danger" onClick={loadMore}>
+              Load More
+            </button>
           </div>
         </div>
-      )}
+      </div>
+
       <div style={{ marginTop: 250 }}></div>
       <Footer />
     </div>
